@@ -14,11 +14,7 @@ public class Estudante {
     private String email;
     private int idade;
 
-    public Estudante(Long id, String nome, String email, int idade) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.idade = idade;
+    public Estudante() {
     }
 
     public Long getId() {
