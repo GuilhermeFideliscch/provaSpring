@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/estudantes")
@@ -22,6 +23,11 @@ public class EstudanteController {
     @GetMapping
     public List<Estudante> buscarEstudantes(){
         return estudanteService.findALL();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Estudante> buscarPorId(@PathVariable Long id){
+        return estudanteService.findId(id);
     }
 
     @DeleteMapping("/{id}")
