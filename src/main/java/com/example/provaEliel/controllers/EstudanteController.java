@@ -1,6 +1,6 @@
 package com.example.provaEliel.controllers;
 
-import com.example.provaEliel.models.Estudante;
+import com.example.provaEliel.models.EstudanteModel;
 import com.example.provaEliel.services.EstudanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,17 +16,17 @@ public class EstudanteController {
     private EstudanteService estudanteService;
 
     @PostMapping
-    public Estudante criarEstudante(@RequestBody Estudante estudante){
-        return estudanteService.criarEstudante(estudante);
+    public EstudanteModel criarEstudante(@RequestBody EstudanteModel estudanteModel){
+        return estudanteService.criarEstudante(estudanteModel);
     }
 
     @GetMapping
-    public List<Estudante> buscarEstudantes(){
+    public List<EstudanteModel> buscarEstudantes(){
         return estudanteService.findALL();
     }
 
     @GetMapping("/{id}")
-    public Optional<Estudante> buscarPorId(@PathVariable Long id){
+    public Optional<EstudanteModel> buscarPorId(@PathVariable Long id){
         return estudanteService.findId(id);
     }
 
@@ -36,7 +36,7 @@ public class EstudanteController {
     }
 
     @PutMapping("/{id}")
-    public Estudante atualizarAlunos(@PathVariable Long id, @RequestBody Estudante estudante){
-        return estudanteService.atualizar(id, estudante);
+    public EstudanteModel atualizarAlunos(@PathVariable Long id, @RequestBody EstudanteModel estudanteModel){
+        return estudanteService.atualizar(id, estudanteModel);
     }
 }

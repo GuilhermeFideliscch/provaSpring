@@ -1,10 +1,11 @@
 package com.example.provaEliel.models;
 
+import com.example.provaEliel.enums.EstudanteEnum;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_aluno")
-public class Estudante {
+public class EstudanteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,8 +15,9 @@ public class Estudante {
     private String email;
     @Column(name = "age")
     private int idade;
+    private EstudanteEnum aprovacao;
 
-    public Estudante() {
+    public EstudanteModel() {
     }
 
     public Long getId() {
@@ -40,6 +42,13 @@ public class Estudante {
         return idade;
     }
 
+    public EstudanteEnum getAprovacao() {
+        return aprovacao;
+    }
+
+    public void setAprovacao(EstudanteEnum aprovacao) {
+        this.aprovacao = aprovacao;
+    }
 
     public void setIdade(int idade) {
         this.idade = idade;

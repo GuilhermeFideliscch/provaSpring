@@ -1,10 +1,9 @@
 package com.example.provaEliel.services;
 
-import com.example.provaEliel.models.Estudante;
+import com.example.provaEliel.models.EstudanteModel;
 import com.example.provaEliel.repositories.EstudanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,15 +14,15 @@ public class EstudanteService {
     @Autowired
     private EstudanteRepository estudanteRepository;
 
-    public Estudante criarEstudante(Estudante estudante){
-        return estudanteRepository.save(estudante);
+    public EstudanteModel criarEstudante(EstudanteModel estudanteModel){
+        return estudanteRepository.save(estudanteModel);
     }
 
-    public List<Estudante> findALL(){
+    public List<EstudanteModel> findALL(){
         return estudanteRepository.findAll();
     }
 
-    public Optional<Estudante> findId(Long id){
+    public Optional<EstudanteModel> findId(Long id){
         return estudanteRepository.findById(id);
     }
 
@@ -31,11 +30,11 @@ public class EstudanteService {
         estudanteRepository.deleteById(id);
     }
 
-    public Estudante atualizar (Long id, Estudante estudante){
-        Estudante model = estudanteRepository.findById(id).get();
-        model.setNome(estudante.getNome());
-        model.setIdade(estudante.getIdade());
-        model.setEmail(estudante.getEmail());
+    public EstudanteModel atualizar (Long id, EstudanteModel estudanteModel){
+        EstudanteModel model = estudanteRepository.findById(id).get();
+        model.setNome(estudanteModel.getNome());
+        model.setIdade(estudanteModel.getIdade());
+        model.setEmail(estudanteModel.getEmail());
 
         return estudanteRepository.save(model);
     }
