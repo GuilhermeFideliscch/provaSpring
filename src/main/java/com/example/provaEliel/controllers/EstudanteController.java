@@ -3,8 +3,11 @@ package com.example.provaEliel.controllers;
 import com.example.provaEliel.models.EstudanteModel;
 import com.example.provaEliel.services.EstudanteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,28 +18,41 @@ public class EstudanteController {
     @Autowired
     private EstudanteService estudanteService;
 
-    @PostMapping
-    public EstudanteModel criarEstudante(@RequestBody EstudanteModel estudanteModel){
-        return estudanteService.criarEstudante(estudanteModel);
+    @GetMapping
+    public ResponseEntity<List<EstudanteModel>> findAll() {
+        List<EstudanteModel> estudantes = estudanteService.findALL();
+        return ResponseEntity.ok().body(estudantes);
     }
 
-    @GetMapping
-    public List<EstudanteModel> buscarEstudantes(){
-        return estudanteService.findALL();
+    @PostMapping
+    public ResponseEntity<EstudanteModel> criarEstudante(@RequestBody EstudanteModel estudanteModel){
+
+        EstudanteModel novoEstudante = estudanteService.criarEstudante(estudanteModel);
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(novoEstudante.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(novoEstudante);
     }
 
     @GetMapping("/{id}")
-    public Optional<EstudanteModel> buscarPorId(@PathVariable Long id){
-        return estudanteService.findId(id);
+    public ResponseEntity<Optional<EstudanteModel>> buscarPorId(@PathVariable Long id){
+        Optional<EstudanteModel> estudante = estudanteService.findId(id);
+        return ResponseEntity.ok().body(estudante);
     }
 
     @DeleteMapping("/{id}")
-    public void deletarEstudante(@PathVariable Long id){
+    public ResponseEntity<Void> deletarEstudante(@PathVariable Long id){
         estudanteService.deletarEstudante(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public EstudanteModel atualizarAlunos(@PathVariable Long id, @RequestBody EstudanteModel estudanteModel){
-        return estudanteService.atualizar(id, estudanteModel);
+    public ResponseEntity<EstudanteModel> atualizarAlunos(@PathVariable Long id, @RequestBody EstudanteModel estudanteModel){
+        EstudanteModel estudanteAtualizado = estudanteService.atualizar(id, estudanteModel);
+        return ResponseEntity.ok().body(estudanteAtualizado);
     }
 }
